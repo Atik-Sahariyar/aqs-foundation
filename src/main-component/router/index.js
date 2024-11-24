@@ -27,6 +27,8 @@ import ForgotPassword from '../ForgotPassword';
 import DashboardLayout from '../../dashboard/layout/DashboardLayout';
 import DashboardHome from '../../dashboard/home/DashboardHome';
 import UploadPdf from '../../dashboard/pages/UploadPdf';
+import AddEvent from '../../dashboard/pages/AddEvent';
+import AllEvents from '../../dashboard/pages/AllEvents';
 
 // Define the routes
 const router = createBrowserRouter([
@@ -137,6 +139,14 @@ const router = createBrowserRouter([
       {
         path: "upload-pdf",
         element: <UploadPdf />,
+      },
+      {
+        path: "add-event",
+        element: <AddEvent />,
+      },
+      {
+        path: "all-events",
+        element: <AllEvents />,
       },
     ],
   },

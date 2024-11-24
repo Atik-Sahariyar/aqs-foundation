@@ -4,30 +4,97 @@ import { FaHome } from "react-icons/fa";
 import { FaPersonRifle } from "react-icons/fa6";
 import { RiProfileFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import logo_2 from "../../../images/logo-2.png"
+import "./sidebar.css"
+import { MdOutlineEventSeat } from "react-icons/md";
 
 
-const Sidebar = () => {
+const baseRoute = "/dashboard"
+
+const userMenuItems = [
+  { name: "Dashboard", path: `${baseRoute}`, icon: <FaHome /> },
+  {
+      name: "Blog System",
+      path: `#`,
+      icon: <RiProfileFill />,
+      subMenu: [
+          { name: "All blogs", path: `${baseRoute}/all-posts` },
+          { name: "Categories", path: `${baseRoute}/categories` }
+      ]
+  },
+  {
+      name: "Marketing",
+      path: `#`,
+      icon: <RiProfileFill />,
+      subMenu: [
+          { name: "Newsletter", path: `${baseRoute}/newsletter` },
+          { name: "Subscribers", path: `${baseRoute}/subscribers` }
+      ]
+  },
+  {
+      name: "Website Setup",
+      path: `#`,
+      icon: <RiProfileFill />,
+      subMenu: [
+          { name: "Header", path: `${baseRoute}/header` },
+          { name: "Footer", path: `${baseRoute}/footer` },
+          { name: "Pages", path: `${baseRoute}/pages` },
+          { name: "Appearance", path: `${baseRoute}/appearance` }
+      ]
+  },
+  {
+      name: "Setup & onfiguration",
+      path: `#`,
+      icon: <RiProfileFill />,
+      subMenu: [
+          { name: "General Setting", path: `${baseRoute}/general-setting` },
+          { name: "SMTP Setting", path: `${baseRoute}/smtp-setting` },
+          { name: "Payment Methods", path: `${baseRoute}/payment-methods` },
+          { name: "Social Media Login", path: `${baseRoute}/social-media-login` }
+      ]
+  },
+  {
+      name: "Staff",
+      path: `#`,
+      icon: <RiProfileFill />,
+      subMenu: [
+          { name: "All Staff", path: `${baseRoute}/all-staff` },
+          { name: "Staff Permission", path: `${baseRoute}/staff-permission` }
+      ]
+  },
+  {
+    name: "Events",
+    path: "#",
+    icon: <MdOutlineEventSeat />,
+    subMenu: [
+      { name: "Add Event", path: `${baseRoute}/add-event` },
+      { name: "All Events", path: `${baseRoute}/all-events` },
+    ]
+  },
+  { name: "Reset Password", path: `${baseRoute}/reset-password`, icon: <BiReset /> }
+];
+
+
+
+const Sidebar = ({isOpenSidebar}) => {
     const [activeMenu, setActiveMenu] = useState(null);
-    const baseRoute = "/dashboard"
+    
 
-    // users sidebar menues
-    const userMenuItems = [
-        { name: "My Profile", path: `${baseRoute}`, icon: <FaPersonRifle /> },
-        { name: "Upload PDF", path: `${baseRoute}/upload-pdf`, icon: <RiProfileFill /> },
-        { name: "Reset Password", path: `${baseRoute}/reset-password`, icon: <BiReset /> },
-      ];
 
-        // Toggle submenu visibility
+
+
+    // Toggle submenu visibility
   const toggleSubMenu = (menuName) => {
     setActiveMenu(activeMenu === menuName ? null : menuName);
   };
+
+
     return (
-        <div className="bg-gray-800 min-h-screen p-2">
-            <h2 className=" mt-4 text-2xl text-white"> <Link to={"/"}> AQS Foundation </Link> </h2>
-            <div> <Link to={"/"} className=" flex gap-2 mt-2 p-2 items-center text-gray-400"> <FaHome /> Home </Link></div>
+        <div className = { `${isOpenSidebar ? " block ": "hidden"} bg-gray-800 h-screen  overflow-y-auto p-2 custom-scrollbar min-w-[250px]`}>
+              <img src={logo_2} alt="" className=" mb-3"/>
           {
-                 userMenuItems.map((item, index) => (
-                    <div key={index} className="mb-2">
+             userMenuItems.map((item, index) => (
+                    <div key={index} className="mb-2 text-[15px]">
                       {/* If the menu has a submenu */}
                       {item.subMenu ? (
                         <>
