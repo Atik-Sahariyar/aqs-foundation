@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdAddTask } from "react-icons/md";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { EditorState } from "draft-js";
 
-const AddEvent = () => {
+const UpdateEvent = () => {
   const [imageFile, setImageFile] = useState(null);
   const [  selectedImage ,setSelectedImage] = useState(null);
   const [tags, setTags] = useState([]);
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  const onEditorStateChange = (newState) => {
+    setEditorState(newState);
+  };
 
   const {
     register,
@@ -64,7 +72,7 @@ const AddEvent = () => {
         {/* Title */}
         <div className="mt-3">
           <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-            Event Title
+            Event Title <span className=" text-red-500 text-xl">{"*"}</span>
           </label>
           <input
             id="title"
@@ -79,7 +87,7 @@ const AddEvent = () => {
         {/* Location */}
          <div className="mt-3">
           <label htmlFor="location" className="block text-sm font-medium text-gray-700">
-            Location
+            Location <span className=" text-red-500 text-xl">{"*"}</span>
           </label>
           <input
             id="location"
@@ -91,10 +99,10 @@ const AddEvent = () => {
           {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location.message}</p>}
         </div>
 
-        {/* Description */}
+        {/*Short description */}
         <div className="mt-3">
           <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-            Description
+           Short Description <span className=" text-red-500 text-xl">{"*"}</span>
           </label>
           <textarea
             id="description"
@@ -109,7 +117,7 @@ const AddEvent = () => {
         {/* Schedule start*/}
         <div className="mt-3">
           <label htmlFor="schedule" className="block text-sm font-medium text-gray-700">
-            Schedule start Date & Time
+            Schedule start Date & Time <span className=" text-red-500 text-xl">{"*"}</span>
           </label>
           <input
             id="schedule"
@@ -144,6 +152,7 @@ const AddEvent = () => {
                 id="tags"
                 type="text"
                 onKeyDown={handleTagInput}
+                
                 className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 placeholder="Enter a tag and press Enter"
               />
@@ -151,14 +160,18 @@ const AddEvent = () => {
         </div>
         {/* Image */}
         <div className=" flex-1">
-        <div>
-        <div className="cursor-pointer mt-4 p-6 border-dashed border-2 border-gray-300 bg-gray-50 dark:bg-gray-600 rounded-md flex items-center justify-center relative">
+        <div className=" mt-3">
+        <label htmlFor="image" className="block text-sm font-medium text-gray-700">
+                Event image <span className=" text-red-500 text-xl">{"*"}</span>
+           </label>
+
+        <div className="cursor-pointer mt-3 p-3 border-dashed border-2 border-gray-300 bg-gray-50 dark:bg-gray-600 rounded-md flex items-center justify-center relative">
           {selectedImage ? (
             <>
               <img
                 src={selectedImage}
                 alt="Selected"
-                className="w-full h-56 object-cover rounded-md"
+                className="w-full h-[250px] object-cover rounded-md"
               />
               <button
                 onClick={handleImageDelete}
@@ -170,7 +183,7 @@ const AddEvent = () => {
           ) : (
             <span
               onClick={() => document.querySelector("#image").click()}
-              className="flex flex-col items-center h-[220px] "
+              className="flex flex-col items-center h-[230px] "
             >
               <span className="text-3xl dark:text-gray-300 text-gray-400">
                 📁
@@ -214,7 +227,7 @@ const AddEvent = () => {
          {/* Category Dropdown */}
           <div className="mt-3">
               <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-                Category
+                Category <span className=" text-red-500 text-xl">{"*"}</span>
               </label>
               <select
                 id="category"
@@ -239,21 +252,18 @@ const AddEvent = () => {
 
 
         {/* Schedule Description */}
-        <div>
-          <label htmlFor="scheduleDescription" className="block text-sm font-medium text-gray-700">
-            Schedule Description
+          <div>
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+           Description 
           </label>
-          <textarea
-            id="scheduleDescription"
-            {...register("scheduleDescription", { required: "Schedule description is required" })}
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            rows="4"
-            placeholder="Enter schedule details"
-          ></textarea>
-          {errors.scheduleDescription && (
-            <p className="text-red-500 text-sm mt-1">{errors.scheduleDescription.message}</p>
-          )}
-        </div>
+     <Editor
+  editorState={editorState}
+  toolbarClassName="border border-gray-300 rounded-t-md p-2"
+  wrapperClassName="border border-gray-300 rounded-md"
+  editorClassName="p-3 min-h-[200px] rounded-b-md focus:outline-none"
+  onEditorStateChange={onEditorStateChange}
+/>
+          </div>
         {/* Submit Button */}
         <div className=" flex justify-end">
           <button
@@ -270,4 +280,4 @@ const AddEvent = () => {
   );
 };
 
-export default AddEvent;
+export default UpdateEvent;

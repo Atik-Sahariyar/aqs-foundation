@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { BiReset } from "react-icons/bi";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaUsers } from "react-icons/fa";
 import { FaPersonRifle } from "react-icons/fa6";
 import { RiProfileFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import logo_2 from "../../../images/logo-2.png"
+import logo_2 from "../../../images/logo.png"
 import "./sidebar.css"
-import { MdOutlineEventSeat } from "react-icons/md";
+import { MdDisplaySettings, MdKeyboardArrowDown, MdKeyboardArrowRight, MdOutlineEventSeat } from "react-icons/md";
+import { IoArrowRedoCircleOutline } from "react-icons/io5";
+import { SiCoinmarketcap } from "react-icons/si";
+import { GrDocumentConfig } from "react-icons/gr";
 
 
 const baseRoute = "/dashboard"
@@ -23,9 +26,18 @@ const userMenuItems = [
       ]
   },
   {
+    name: "Events",
+    path: "#",
+    icon: <MdOutlineEventSeat />,
+    subMenu: [
+      { name: "Add Event", path: `${baseRoute}/add-event` },
+      { name: "All Events", path: `${baseRoute}/all-events` },
+    ]
+  },
+  {
       name: "Marketing",
       path: `#`,
-      icon: <RiProfileFill />,
+      icon: <SiCoinmarketcap />      ,
       subMenu: [
           { name: "Newsletter", path: `${baseRoute}/newsletter` },
           { name: "Subscribers", path: `${baseRoute}/subscribers` }
@@ -34,7 +46,7 @@ const userMenuItems = [
   {
       name: "Website Setup",
       path: `#`,
-      icon: <RiProfileFill />,
+      icon: <MdDisplaySettings />,
       subMenu: [
           { name: "Header", path: `${baseRoute}/header` },
           { name: "Footer", path: `${baseRoute}/footer` },
@@ -45,7 +57,7 @@ const userMenuItems = [
   {
       name: "Setup & onfiguration",
       path: `#`,
-      icon: <RiProfileFill />,
+      icon: <GrDocumentConfig />      ,
       subMenu: [
           { name: "General Setting", path: `${baseRoute}/general-setting` },
           { name: "SMTP Setting", path: `${baseRoute}/smtp-setting` },
@@ -56,22 +68,13 @@ const userMenuItems = [
   {
       name: "Staff",
       path: `#`,
-      icon: <RiProfileFill />,
+      icon: <FaUsers />      ,
       subMenu: [
           { name: "All Staff", path: `${baseRoute}/all-staff` },
           { name: "Staff Permission", path: `${baseRoute}/staff-permission` }
       ]
   },
-  {
-    name: "Events",
-    path: "#",
-    icon: <MdOutlineEventSeat />,
-    subMenu: [
-      { name: "Add Event", path: `${baseRoute}/add-event` },
-      { name: "All Events", path: `${baseRoute}/all-events` },
-    ]
-  },
-  { name: "Reset Password", path: `${baseRoute}/reset-password`, icon: <BiReset /> }
+
 ];
 
 
@@ -90,8 +93,8 @@ const Sidebar = ({isOpenSidebar}) => {
 
 
     return (
-        <div className = { `${isOpenSidebar ? " block ": "hidden"} bg-gray-800 h-screen  overflow-y-auto p-2 custom-scrollbar min-w-[250px]`}>
-              <img src={logo_2} alt="" className=" mb-3"/>
+        <div className = { `${isOpenSidebar ? " block ": "hidden"} bg-gray-800  h-screen  overflow-y-auto custom-scrollbar p-2  min-w-[250px]`}>
+              <img src={logo_2} alt="" className=" mb-3 w-64"/>
           {
              userMenuItems.map((item, index) => (
                     <div key={index} className="mb-2 text-[15px]">
@@ -106,7 +109,7 @@ const Sidebar = ({isOpenSidebar}) => {
                               {item.icon}
                               {item.name}
                             </span>
-                            {activeMenu === item.name ? "^" : ">"}
+                            {activeMenu === item.name ? <MdKeyboardArrowDown />: <MdKeyboardArrowRight />  }
                           </button>
                           {/* Submenu items */}
                           {activeMenu === item.name && (
@@ -117,7 +120,10 @@ const Sidebar = ({isOpenSidebar}) => {
                                   to={subItem.path}
                                   className="block p-2 text-gray-400 hover:bg-gray-700 hover:rounded-md hover:text-white"
                                 >
+                                  <span className=" flex gap-1 items-center">
+                                  <IoArrowRedoCircleOutline />
                                   {subItem.name}
+                                    </span>
                                 </Link>
                               ))}
                             </div>

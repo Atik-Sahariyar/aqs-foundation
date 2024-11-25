@@ -27,8 +27,24 @@ import ForgotPassword from '../ForgotPassword';
 import DashboardLayout from '../../dashboard/layout/DashboardLayout';
 import DashboardHome from '../../dashboard/home/DashboardHome';
 import UploadPdf from '../../dashboard/pages/UploadPdf';
-import AddEvent from '../../dashboard/pages/AddEvent';
-import AllEvents from '../../dashboard/pages/AllEvents';
+import AddEvent from '../../dashboard/pages/events/AddEvent';
+import AllEvents from '../../dashboard/pages/events/AllEvents';
+import AddBlog from '../../dashboard/pages/blogs/AddBlog';
+import AllBlogs from '../../dashboard/pages/blogs/AllBlogs';
+import Newsletter from '../../components/Newsletter';
+import SendNewsletter from '../../dashboard/pages/marketing/SendNewsletter';
+import Subscribers from '../../dashboard/pages/marketing/Subscribers';
+import Categories from '../../dashboard/pages/blogs/Categories';
+import HeaderSettings from '../../dashboard/pages/websiteSetup/HeaderSettings';
+import FooterSetting from '../../dashboard/pages/websiteSetup/FooterSetting';
+import PagesSetting from '../../dashboard/pages/websiteSetup/PagesSetting';
+import Appearance from '../../dashboard/pages/websiteSetup/Appearance';
+import GeneralSettings from '../../dashboard/pages/setupAndConfiguration/GeneralSettings';
+import SMTPsettings from '../../dashboard/pages/setupAndConfiguration/SMTPsettings';
+import PaymentMethods from '../../dashboard/pages/setupAndConfiguration/PaymentMethods';
+import SocailMediaLogin from '../../dashboard/pages/setupAndConfiguration/SocailMediaLogin';
+import AllStaff from '../../dashboard/pages/staff/AllStaff';
+import StaffPermission from '../../dashboard/pages/staff/StaffPermission';
 
 // Define the routes
 const router = createBrowserRouter([
@@ -137,8 +153,16 @@ const router = createBrowserRouter([
         element: <DashboardHome />,
       },
       {
-        path: "upload-pdf",
-        element: <UploadPdf />,
+        path: "all-posts",
+        element: <AllBlogs />,
+      },
+      {
+        path: "categories",
+        element: <Categories />,
+      },
+      {
+        path: "add-blog",
+        element: <AddBlog />,
       },
       {
         path: "add-event",
@@ -148,6 +172,62 @@ const router = createBrowserRouter([
         path: "all-events",
         element: <AllEvents />,
       },
+      {
+        path: "newsletter",
+        element: <SendNewsletter />,
+      },
+      {
+        path: "subscribers",
+        element: <Subscribers />,
+      },
+      {
+        path: "header",
+        element: <HeaderSettings />,
+      },
+      {
+        path: "footer",
+        element: <FooterSetting />,
+      },
+      {
+        path: "pages",
+        element: <PagesSetting />,
+      },
+      {
+        path: "appearance",
+        element: <Appearance />,
+      },
+      {
+        path: "general-setting",
+        element: <GeneralSettings />,
+      },
+      {
+        path: "smtp-setting",
+        element: <SMTPsettings />,
+      },
+      {
+        path: "payment-methods",
+        element: <PaymentMethods />,
+      },
+      {
+        path: "social-media-login",
+        element: <SocailMediaLogin />,
+      },
+      {
+        path: "all-staff",
+        element: <AllStaff />,
+      },
+      {
+        path: "staff-permission",
+        element: <StaffPermission />,
+      },
+
+      {
+        path: "upload-pdf",
+        element: <UploadPdf />,
+      },
+ 
+
+
     ],
   },
 ]);

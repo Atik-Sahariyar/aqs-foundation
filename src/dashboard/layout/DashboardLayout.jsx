@@ -8,11 +8,15 @@ const DashboardLayout = () => {
 
     
     return (
-        <div className=" flex">
+        <div className=" flex ">
             <Sidebar isOpenSidebar={isOpenSidebar}/>
-            <div className= {`${isOpenSidebar ? " ": "  w-full"}`}>
+            <div className= {`${isOpenSidebar ? "w-full ": "  w-full"}`}>
+            <div className=" sticky top-0 z-40 w-full">
             <DashboardHeader isOpenSidebar={isOpenSidebar} setIsOpenSidebar={setIsOpenSidebar} />
-            <Outlet />
+            </div>
+             <div className=" h-[calc(100vh-60px)] overflow-y-auto custom-scrollbar">
+             <Outlet />
+             </div>
             </div>
         </div>
     );
